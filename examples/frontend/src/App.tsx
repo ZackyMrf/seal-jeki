@@ -24,14 +24,14 @@ function LandingPage() {
           <div style={{ textAlign: 'center' }}>
             <h2>Allowlist Example</h2>
             <p>
-              Shows how a creator can define an allowlist based access. The creator first creates an
+              Shows how a creator can define an allowlist-based access. The creator first creates an
               allowlist and can add or remove users in the list. The creator can then associate
               encrypted files to the allowlist. Only users in the allowlist have access to decrypt
               the files.
             </p>
           </div>
           <Link to="/allowlist-example">
-            <Button size="3">Try it</Button>
+            <Button size="3" variant="primary">Try it</Button>
           </Link>
         </Flex>
       </Card>
@@ -40,16 +40,15 @@ function LandingPage() {
           <div style={{ textAlign: 'center' }}>
             <h2>Subscription Example</h2>
             <p>
-              Shows how a creator can define a subscription based access to its published files. The
-              creator defines subcription fee and how long a subscription is valid for. The creator
+              Shows how a creator can define a subscription-based access to published files. The
+              creator defines subscription fees and how long a subscription is valid. The creator
               can then associate encrypted files to the service. Only users who have purchased a
-              subscription (NFT) have access to decrypt the files, along with the condition that the
-              subscription must not have expired (i.e. the subscription creation timestamp plus the
-              TTL is smaller than the current clock time).
+              subscription (NFT) have access to decrypt the files, provided the subscription is
+              still valid.
             </p>
           </div>
           <Link to="/subscription-example">
-            <Button size="3">Try it</Button>
+            <Button size="3" variant="primary">Try it</Button>
           </Link>
         </Flex>
       </Card>
@@ -61,30 +60,37 @@ function App() {
   const currentAccount = useCurrentAccount();
   const [recipientAllowlist, setRecipientAllowlist] = useState<string>('');
   const [capId, setCapId] = useState<string>('');
+  
   return (
     <Container>
-      <Flex position="sticky" px="4" py="2" justify="between">
-        <h1 className="text-4xl font-bold m-4 mb-8">Seal Example Apps</h1>
-        {/* <p>TODO: add seal logo</p> */}
+      <Flex position="sticky" px="4" py="2" justify="between" align="center">
+        <div>
+          <h1 className="text-4xl font-bold m-4 mb-8">Seal Example Apps</h1>
+        </div>
         <Box>
           <ConnectButton />
         </Box>
       </Flex>
-      <Card style={{ marginBottom: '2rem' }}>
+      <Card style={{ marginBottom: '2rem', padding: '1rem' }}>
         <p>
           1. Code is available{' '}
-          <a href="https://github.com/MystenLabs/seal/tree/main/examples">here</a>.
+          <a href="https://github.com/MystenLabs/seal/tree/main/examples" target="_blank" rel="noopener noreferrer">
+            here
+          </a>.
         </p>
         <p>
-          2. These examples are for Testnet only. Make sure you wallet is set to Testnet and has
-          some balance (can request from <a href="https://faucet.sui.io/">faucet.sui.io</a>).
+          2. These examples are for Testnet only. Ensure your wallet is set to Testnet and has some balance (you can request it from{' '}
+          <a href="https://faucet.sui.io/" target="_blank" rel="noopener noreferrer">
+            faucet.sui.io
+          </a>
+          ).
         </p>
         <p>
-          3. Blobs are only stored on Walrus Testnet for 1 epoch by default, older files cannot be
+          3. Blobs are only stored on Walrus Testnet for 1 epoch by default. Older files cannot be
           retrieved even if you have access.
         </p>
         <p>
-          4. Currently only image files are supported, and the UI is minimal, designed for demo
+          4. Currently, only image files are supported. The UI is minimal and designed for demo
           purposes only!
         </p>
       </Card>
@@ -153,7 +159,9 @@ function App() {
           </Routes>
         </BrowserRouter>
       ) : (
-        <p>Please connect your wallet to continue</p>
+        <Card style={{ textAlign: 'center', padding: '2rem' }}>
+          <p>Please connect your wallet to continue</p>
+        </Card>
       )}
     </Container>
   );
